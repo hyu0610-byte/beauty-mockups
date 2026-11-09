@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>시안 3 · NAME 헤어 & 브로우</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2E3A2C">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NAME">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400;500&family=Noto+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
@@ -43,6 +51,14 @@ img{display:block}
 .btn.dark{background:#2E3A2C;color:#F7F5EF;padding:16px 30px}
 .fade{opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}
 .fade.in{opacity:1;transform:none}
+#installBtn{position:fixed;left:16px;bottom:16px;z-index:50;display:flex;align-items:center;gap:8px;background:#F7F5EF;color:#2E3A2C;border:1px solid #2E3A2C;padding:11px 18px;border-radius:999px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+#iosGuide{position:fixed;inset:0;z-index:60;background:rgba(22,26,21,.55);display:none;align-items:flex-end;justify-content:center;padding:16px}
+#iosGuide.open{display:flex}
+#iosGuide .sheet{width:100%;max-width:440px;background:#F7F5EF;border-radius:22px;padding:26px 22px 22px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+#iosGuide ol{margin:16px 0 20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+#iosGuide li{display:flex;align-items:center;gap:14px;font-size:17px;line-height:1.5}
+#iosGuide li i{flex:none;width:44px;height:44px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;color:#2E3A2C;font-style:normal;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+@media (display-mode: standalone){#installBtn,.not-app{display:none !important}}
 </style>
 </head>
 <body>
@@ -200,7 +216,27 @@ img{display:block}
     <div style="display:flex;flex-wrap:wrap;gap:24px"><a href="admin/" style="color:#C9C4B6">관리자 로그인</a><a href="#top" style="color:#C9C4B6">Instagram</a><a href="#top" style="color:#C9C4B6">네이버 블로그</a><a href="#top" style="color:#C9C4B6">개인정보처리방침</a></div>
   </div>
 </footer>
-<a href="../" style="position:fixed;right:16px;bottom:16px;background:#2E3A2C;color:#F7F5EF;padding:12px 18px;border-radius:999px;font-size:13px;z-index:50">← 시안 목록</a>
+<a href="../" class="not-app" style="position:fixed;right:16px;bottom:16px;background:#2E3A2C;color:#F7F5EF;padding:12px 18px;border-radius:999px;font-size:13px;z-index:50">← 시안 목록</a>
+
+<button type="button" id="installBtn" aria-label="휴대폰에 앱으로 설치하기">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>
+  앱으로 설치
+</button>
+
+<div id="iosGuide" role="dialog" aria-modal="true" aria-labelledby="iosTitle">
+  <div class="sheet">
+    <div style="display:flex;align-items:center;gap:14px">
+      <img src="icons/apple-touch-icon.png" alt="" width="56" height="56" style="border-radius:14px">
+      <div><div id="iosTitle" style="font-size:20px;font-weight:700">홈 화면에 앱 추가하기</div><div style="font-size:15px;color:#5E6B57">아이콘을 누르면 앱처럼 열려요</div></div>
+    </div>
+    <ol>
+      <li><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11v8a2 2 0 002 2h8a2 2 0 002-2v-8"/></svg></i><span>사파리 아래쪽의 <b>공유 버튼</b>을 눌러요</span></li>
+      <li><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg></i><span>메뉴를 내려서 <b>홈 화면에 추가</b>를 눌러요</span></li>
+      <li><i style="font-size:15px;font-weight:700">추가</i><span>오른쪽 위 <b>추가</b>를 누르면 끝이에요</span></li>
+    </ol>
+    <button type="button" id="iosClose" style="width:100%;min-height:52px;border:0;border-radius:14px;background:#2E3A2C;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer">확인</button>
+  </div>
+</div>
 
 <script src="store.js?v=3"></script>
 <script>
@@ -256,6 +292,19 @@ var cart=0;$('products').addEventListener('click',function(e){if(e.target.classL
 // 숫자 카운트 (data-to에 실제 숫자를 넣으면 0부터 올라갑니다)
 var counted=false;
 function countUp(){[].forEach.call(document.querySelectorAll('.num'),function(el){var to=parseFloat(el.dataset.to);if(isNaN(to))return;var dec=+el.dataset.dec,t0=performance.now();(function s(now){var k=Math.min(1,(now-t0)/1600),v=to*(1-Math.pow(1-k,3));el.textContent=v.toFixed(dec);if(k<1)requestAnimationFrame(s);})(t0);});}
+
+// 앱(PWA) 설치
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+var deferred=null,isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;});
+window.addEventListener('appinstalled',function(){$('installBtn').style.display='none';});
+$('installBtn').addEventListener('click',function(){
+  if(deferred){deferred.prompt();deferred.userChoice.finally(function(){deferred=null;});return;}
+  if(isIOS){$('iosGuide').classList.add('open');return;}
+  alert('휴대폰에서 이 주소를 열고 이 버튼을 누르면 앱처럼 설치할 수 있어요.\n\n안드로이드: 크롬 메뉴(⋮) → "홈 화면에 추가" 또는 "앱 설치"\n아이폰: 사파리 공유 버튼 → "홈 화면에 추가"');
+});
+$('iosClose').addEventListener('click',function(){$('iosGuide').classList.remove('open');});
+$('iosGuide').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
 
 // 스크롤 등장 효과
 var io=new IntersectionObserver(function(es){es.forEach(function(en){if(!en.isIntersecting)return;if(en.target.id==='stats'){if(!counted){counted=true;countUp();}}else{en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.2});

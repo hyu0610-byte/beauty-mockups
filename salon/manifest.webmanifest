@@ -1,0 +1,20 @@
+{
+  "name": "NAME 헤어 & 브로우",
+  "short_name": "NAME",
+  "description": "머리끝부터 눈썹까지, 한 사람의 손끝으로. 1인 헤어 · 브로우 아틀리에",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F5EF",
+  "theme_color": "#2E3A2C",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "예약하기", "url": "./#booking", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "메뉴 · 가격", "url": "./#menu", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
