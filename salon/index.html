@@ -61,7 +61,7 @@ img{display:block}
       </div>
     </div>
     <nav id="menuPanel" class="glass">
-      <a href="#story">스토리</a><a href="#menu">메뉴·가격</a><a href="#portfolio">포트폴리오</a><a href="#shop">홈케어 숍</a>
+      <a href="#story">스토리</a><a href="#menu">메뉴·가격</a><a href="#portfolio">포트폴리오</a><a href="#news">소식</a><a href="#shop">홈케어 숍</a><a href="admin/">관리자 (데모)</a>
     </nav>
   </div>
 </header>
@@ -153,6 +153,14 @@ img{display:block}
   </div>
 </section>
 
+<section id="news" class="wrap" style="padding-top:120px">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:40px">
+    <div><div class="kicker" style="margin-bottom:10px">News</div><h2 class="serif" style="margin:0;font-size:clamp(30px,3.4vw,46px)">샵 소식</h2></div>
+    <a href="admin/" style="font-size:15px;border-bottom:1px solid #1F241E;padding-bottom:3px">사장님이 직접 올려요 · 관리자 데모</a>
+  </div>
+  <div id="newsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px"></div>
+</section>
+
 <section id="shop" class="wrap" style="padding-top:120px;padding-bottom:120px">
   <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:40px">
     <div><div class="kicker" style="margin-bottom:10px">Home Care</div><h2 class="serif" style="margin:0;font-size:clamp(30px,3.4vw,46px)">샵에서 쓰는 그대로, 집에서도</h2></div>
@@ -189,13 +197,16 @@ img{display:block}
 <footer style="background:#161A15;color:#C9C4B6">
   <div class="wrap" style="padding-top:56px;padding-bottom:56px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;font-size:14px;line-height:1.8">
     <div><div class="latin" style="font-size:26px;color:#F2EFE7">NAME</div><div>[상호명] · [사업자등록번호] · [주소]</div></div>
-    <div style="display:flex;flex-wrap:wrap;gap:24px"><a href="#top" style="color:#C9C4B6">Instagram</a><a href="#top" style="color:#C9C4B6">네이버 블로그</a><a href="#top" style="color:#C9C4B6">개인정보처리방침</a></div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px"><a href="admin/" style="color:#C9C4B6">관리자 로그인</a><a href="#top" style="color:#C9C4B6">Instagram</a><a href="#top" style="color:#C9C4B6">네이버 블로그</a><a href="#top" style="color:#C9C4B6">개인정보처리방침</a></div>
   </div>
 </footer>
 <a href="../" style="position:fixed;right:16px;bottom:16px;background:#2E3A2C;color:#F7F5EF;padding:12px 18px;border-radius:999px;font-size:13px;z-index:50">← 시안 목록</a>
 
+<script src="store.js"></script>
 <script>
 var $=function(id){return document.getElementById(id)};
+var store=SalonStore.load();
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 // 메뉴
 $('menuBtn').addEventListener('click',function(){var o=$('menuPanel').classList.toggle('open');this.setAttribute('aria-expanded',o);});
 $('menuPanel').addEventListener('click',function(e){if(e.target.tagName==='A')$('menuPanel').classList.remove('open');});
@@ -223,15 +234,18 @@ $('eras').addEventListener('click',function(e){var b=e.target.closest('button');
 showEra(0);startEra();
 
 // 메뉴·가격
-var menus=[{en:'Hair',ko:'헤어',items:[['디자인 커트','샴푸 · 드라이 포함'],['새치 커버 컬러','두피 자극을 줄인 저자극 약제'],['볼륨 · C컬 펌','정수리 볼륨과 자연스러운 컬'],['모발 클리닉','손상 정도에 따라 단계별 진행'],['두피 스파','각질 · 혈행 케어, 약 [시간]']]},{en:'Brow',ko:'눈썹 반영구',items:[['자연 결눈썹','한 올씩 그리는 결 표현'],['섀도우 눈썹','은은한 메이크업 효과'],['콤보 눈썹','결과 섀도우를 함께'],['잔흔 커버','변색된 기존 문신 보정, 상담 후 결정'],['리터치','[리터치 기간 · 조건]']]}];
-$('menus').innerHTML=menus.map(function(m){return '<div><div style="display:flex;align-items:baseline;gap:12px;padding-bottom:14px;border-bottom:2px solid #2E3A2C"><span class="latin" style="font-size:32px;color:#2E3A2C">'+m.en+'</span><span style="font-size:15px;color:#5E6B57">'+m.ko+'</span></div>'+m.items.map(function(it){return '<div class="mi"><div><div style="font-size:17px;font-weight:500">'+it[0]+'</div><div style="font-size:14px;color:#5E6B57;margin-top:4px">'+it[1]+'</div></div><span style="font-size:16px;font-weight:500;white-space:nowrap">[가격]</span></div>';}).join('')+'</div>';}).join('');
+$('menus').innerHTML=SalonStore.MENUS.map(function(m){return '<div><div style="display:flex;align-items:baseline;gap:12px;padding-bottom:14px;border-bottom:2px solid #2E3A2C"><span class="latin" style="font-size:32px;color:#2E3A2C">'+m.en+'</span><span style="font-size:15px;color:#5E6B57">'+m.ko+'</span></div>'+m.items.map(function(it){var pr=store.prices[m.en+'|'+it[0]];return '<div class="mi"><div><div style="font-size:17px;font-weight:500">'+it[0]+'</div><div style="font-size:14px;color:#5E6B57;margin-top:4px">'+it[1]+'</div></div><span style="font-size:16px;font-weight:500;white-space:nowrap">'+(pr?esc(pr):'[가격]')+'</span></div>';}).join('')+'</div>';}).join('');
+
+// 소식 (관리자에서 올린 글)
+$('newsGrid').innerHTML=store.posts.length?store.posts.map(function(p){return '<article style="display:flex;flex-direction:column;gap:14px;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)">'+(p.img?'<img src="'+p.img+'" alt="" style="width:100%;aspect-ratio:16/10;object-fit:cover;background:#DCD6C8">':'')+'<div style="padding:0 22px 24px'+(p.img?'':';padding-top:22px')+'"><div style="font-size:13px;color:#5E6B57">'+esc(p.date)+'</div><h3 style="margin:6px 0 10px;font-size:19px;font-weight:500">'+esc(p.title)+'</h3><p style="margin:0;font-size:15px;line-height:1.8;color:#4A5246;white-space:pre-line">'+esc(p.body)+'</p></div></article>';}).join(''):'<p style="color:#5E6B57">아직 소식이 없어요.</p>';
 
 // 포트폴리오
 var works=[['레이어드 단발','헤어','hair','pf1'],['자연 결눈썹','눈썹','brow','pf4'],['C컬 미디엄 펌','헤어','hair','pf2'],['그레이 헤어 스타일링','헤어','hair','pf3'],['섀도우 눈썹','눈썹','brow','pf5'],['롱 스트레이트','헤어','hair','pf6']];
 var filter='all';
 function showWorks(){
   $('filters').innerHTML=[['all','전체'],['hair','헤어'],['brow','눈썹']].map(function(f){return '<button type="button" class="flt'+(filter===f[0]?' on':'')+'" data-f="'+f[0]+'">'+f[1]+'</button>';}).join('');
-  $('works').innerHTML=works.filter(function(w){return filter==='all'||w[2]===filter}).map(function(w){return '<figure style="margin:0;display:flex;flex-direction:column;gap:10px"><img src="img/'+w[3]+'.jpg" alt="'+w[0]+'" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;background:#DCD6C8"><figcaption style="display:flex;justify-content:space-between;font-size:15px"><span>'+w[0]+'</span><span style="color:#5E6B57">'+w[1]+'</span></figcaption></figure>';}).join('');}
+  var all=store.works.map(function(w){return [esc(w.title),w.cat==='hair'?'헤어':'눈썹',w.cat,w.img]}).concat(works.map(function(w){return [w[0],w[1],w[2],'img/'+w[3]+'.jpg']}));
+  $('works').innerHTML=all.filter(function(w){return filter==='all'||w[2]===filter}).map(function(w){return '<figure style="margin:0;display:flex;flex-direction:column;gap:10px"><img src="'+w[3]+'" alt="'+w[0]+'" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;background:#DCD6C8"><figcaption style="display:flex;justify-content:space-between;font-size:15px"><span>'+w[0]+'</span><span style="color:#5E6B57">'+w[1]+'</span></figcaption></figure>';}).join('');}
 $('filters').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;filter=b.dataset.f;showWorks();});
 showWorks();
 
