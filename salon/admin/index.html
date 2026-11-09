@@ -46,7 +46,8 @@ textarea{min-height:140px;resize:vertical;line-height:1.6}
 .wk{position:relative;border-radius:12px;overflow:hidden;background:#E6E1D5}
 .wk img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
 .wk div{padding:8px 10px;font-size:14px;background:#fff}
-.wk button{position:absolute;top:8px;right:8px;min-height:36px;padding:0 12px;border:0;border-radius:999px;background:rgba(0,0,0,.6);color:#fff;font-size:13px;cursor:pointer}
+.wk .acts{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 8px 8px;background:#fff}
+.wk .acts button{min-height:40px;border-radius:10px;font-size:14px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -104,7 +105,7 @@ textarea{min-height:140px;resize:vertical;line-height:1.6}
     <!-- 포트폴리오 -->
     <div id="tab-works" class="hidden">
       <form class="panel" id="workForm">
-        <h2>시술 사진 올리기</h2>
+        <h2 id="workTitle">시술 사진 올리기</h2>
         <label class="photo" id="workPhoto" style="min-height:220px">
           <input type="file" accept="image/*" id="workFile">
           <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/></svg>
@@ -114,9 +115,10 @@ textarea{min-height:140px;resize:vertical;line-height:1.6}
         <input id="workT" type="text" placeholder="예) 볼륨 C컬 펌" required>
         <label for="workC">분류</label>
         <select id="workC"><option value="hair">헤어</option><option value="brow">눈썹</option></select>
-        <button class="big" type="submit">포트폴리오에 올리기</button>
+        <button class="big" type="submit" id="workSubmit">포트폴리오에 올리기</button>
+        <button class="ghost hidden" type="button" id="workCancel" style="width:100%;margin-top:10px">수정 취소</button>
       </form>
-      <div class="panel"><h2>내가 올린 사진</h2><div id="workList" class="grid2"></div><p id="workEmpty" style="color:#5E6B57;margin:0">아직 올린 사진이 없어요.</p></div>
+      <div class="panel"><h2>포트폴리오 사진 <span id="workCount" style="font-size:15px;color:#5E6B57;font-weight:400"></span></h2><div id="workList" class="grid2"></div><p id="workEmpty" style="color:#5E6B57;margin:0">아직 사진이 없어요.</p></div>
     </div>
 
     <!-- 가격 -->
@@ -127,6 +129,11 @@ textarea{min-height:140px;resize:vertical;line-height:1.6}
         <div id="priceList"></div>
         <button class="big" type="submit">가격 저장하기</button>
       </form>
+    </div>
+
+    <div style="text-align:center;margin-top:28px">
+      <button class="ghost" type="button" id="resetDemo">데모 처음 상태로 되돌리기</button>
+      <p style="font-size:14px;color:#5E6B57;margin:8px 0 0">체험하며 바꾼 글, 사진, 가격이 모두 원래대로 돌아가요.</p>
     </div>
   </div>
 </section>
@@ -172,20 +179,27 @@ $('newsList').addEventListener('click',function(e){var d=SalonStore.load(),ed=e.
     $('newsTitle').textContent='소식 수정하기';$('newsSubmit').textContent='수정 완료';$('newsCancel').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
   if(del&&confirm('이 소식을 정말 삭제할까요?')){d.posts=d.posts.filter(function(x){return x.id!=del});SalonStore.save(d);renderNews();toast('삭제했어요');}});
 
-// 포트폴리오
-var workPic={data:null};
+// 포트폴리오 (기존 사진 포함 전체 수정·삭제)
+var workPic={data:null},workEditing=null;
 bindPhoto('workFile','workPhoto',workPic);
-function renderWorks(){var d=SalonStore.load();$('workEmpty').classList.toggle('hidden',d.works.length>0);
-  $('workList').innerHTML=d.works.map(function(w){return '<div class="wk"><img src="'+w.img+'" alt="'+esc(w.title)+'"><div>'+esc(w.title)+' · '+(w.cat==='hair'?'헤어':'눈썹')+'</div><button type="button" data-del="'+w.id+'">삭제</button></div>';}).join('');}
-$('workForm').addEventListener('submit',function(e){e.preventDefault();if(!workPic.data)return toast('사진을 먼저 선택해 주세요');var d=SalonStore.load();
-  d.works.unshift({id:Date.now(),title:$('workT').value.trim(),cat:$('workC').value,img:workPic.data});
-  if(!SalonStore.save(d))return toast('저장 공간이 부족해요.');toast('포트폴리오에 올렸어요');$('workForm').reset();clearPhoto('workPhoto',workPic);renderWorks();});
-$('workList').addEventListener('click',function(e){var del=e.target.dataset.del;if(del&&confirm('이 사진을 정말 삭제할까요?')){var d=SalonStore.load();d.works=d.works.filter(function(x){return x.id!=del});SalonStore.save(d);renderWorks();toast('삭제했어요');}});
+function renderWorks(){var d=SalonStore.load();$('workEmpty').classList.toggle('hidden',d.works.length>0);$('workCount').textContent=d.works.length+'장';
+  $('workList').innerHTML=d.works.map(function(w){return '<div class="wk"><img src="'+src(w.img)+'" alt="'+esc(w.title)+'"><div>'+esc(w.title)+' · '+(w.cat==='hair'?'헤어':'눈썹')+'</div><div class="acts"><button class="ghost" type="button" data-edit="'+w.id+'">수정</button><button class="danger" type="button" data-del="'+w.id+'">삭제</button></div></div>';}).join('');}
+function resetWork(){workEditing=null;$('workForm').reset();clearPhoto('workPhoto',workPic);$('workTitle').textContent='시술 사진 올리기';$('workSubmit').textContent='포트폴리오에 올리기';$('workCancel').classList.add('hidden');}
+$('workForm').addEventListener('submit',function(e){e.preventDefault();var d=SalonStore.load(),t=$('workT').value.trim();if(!t)return;
+  if(workEditing){var w=d.works.find(function(x){return x.id===workEditing});w.title=t;w.cat=$('workC').value;if(workPic.data)w.img=workPic.data;}
+  else{if(!workPic.data)return toast('사진을 먼저 선택해 주세요');d.works.unshift({id:Date.now(),title:t,cat:$('workC').value,img:workPic.data});}
+  if(!SalonStore.save(d))return toast('저장 공간이 부족해요.');toast(workEditing?'수정했어요':'포트폴리오에 올렸어요');resetWork();renderWorks();});
+$('workCancel').addEventListener('click',resetWork);
+$('workList').addEventListener('click',function(e){var d=SalonStore.load(),ed=e.target.dataset.edit,del=e.target.dataset.del;
+  if(ed){var w=d.works.find(function(x){return x.id==ed});workEditing=w.id;$('workT').value=w.title;$('workC').value=w.cat;clearPhoto('workPhoto',workPic);var im=document.createElement('img');im.src=src(w.img);im.alt='';$('workPhoto').appendChild(im);
+    $('workTitle').textContent='사진 정보 수정하기';$('workSubmit').textContent='수정 완료';$('workCancel').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+  if(del&&confirm('이 사진을 정말 삭제할까요?')){d.works=d.works.filter(function(x){return x.id!=del});SalonStore.save(d);if(workEditing==del)resetWork();renderWorks();toast('삭제했어요');}});
 
 // 가격
 function renderPrices(){var d=SalonStore.load();$('priceList').innerHTML=SalonStore.MENUS.map(function(m){return '<h3 style="margin:22px 0 4px;font-size:18px">'+m.ko+'</h3>'+m.items.map(function(it){var k=m.en+'|'+it[0];return '<div class="price"><label for="p-'+esc(k)+'" style="margin:0">'+it[0]+'</label><input type="text" id="p-'+esc(k)+'" data-k="'+esc(k)+'" value="'+esc(d.prices[k]||'')+'" placeholder="예) 50,000원"></div>';}).join('');}).join('');}
 $('priceForm').addEventListener('submit',function(e){e.preventDefault();var d=SalonStore.load();[].forEach.call(document.querySelectorAll('#priceList input'),function(i){var v=i.value.trim();if(v)d.prices[i.dataset.k]=v;else delete d.prices[i.dataset.k];});SalonStore.save(d);toast('가격을 저장했어요');});
 
+$('resetDemo').addEventListener('click',function(){if(confirm('체험하며 바꾼 내용을 모두 처음 상태로 되돌릴까요?')){SalonStore.reset();resetNews();resetWork();renderAll();toast('처음 상태로 되돌렸어요');}});
 function renderAll(){renderNews();renderWorks();renderPrices();}
 </script>
 </body>
