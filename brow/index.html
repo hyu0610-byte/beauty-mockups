@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>시안 2 · 눈썹문신 스튜디오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F7F3EC;color:#1E1B16;font-family:'Noto Sans KR',system-ui,sans-serif}
+a{color:#1E1B16;text-decoration:none}a:hover{color:#7A5C2C}
+img{display:block}
+.wrap{max-width:1320px;margin:0 auto;padding-left:24px;padding-right:24px}
+.eyebrow{font-size:12px;letter-spacing:.22em;color:#7A5C2C;font-weight:700}
+.head{font-family:'Gowun Dodum',sans-serif;font-weight:400;letter-spacing:-.02em}
+.latin{font-family:'Instrument Serif',serif;font-style:italic}
+.pill{border-radius:999px}
+.ba{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:24px;background:#E6DED1;touch-action:pan-y}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .line{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:#F7F3EC;pointer-events:none}
+.ba .knob{position:absolute;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:#F7F3EC;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.ba input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.tag{position:absolute;bottom:14px;background:#1E1B16;color:#F7F3EC;font-size:11px;letter-spacing:.16em;padding:6px 12px;border-radius:999px;pointer-events:none}
+.th{padding:0;aspect-ratio:4/3;overflow:hidden;border-radius:14px;cursor:pointer;background:#E6DED1;border:1px solid #D8CDBA;opacity:.6}
+.th.on{border:2px solid #1E1B16;opacity:1}
+.th img{width:100%;height:100%;object-fit:cover}
+.stat .n{font-family:'Instrument Serif',serif;font-style:italic;font-size:44px}
+.stat .l{font-size:12px;letter-spacing:.16em;color:#5C5347;margin-top:4px}
+.feat{border-top:1px solid #D8CDBA;padding-top:14px}
+.feat b{font-size:15px}.feat div{font-size:13px;color:#5C5347;margin-top:4px;line-height:1.6}
+.svc{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:baseline;padding:30px 0;border-top:1px solid #4A433A}
+.case .pic{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:24px;background:#E6DED1}
+.case .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+.case .pic .after{opacity:0}
+.case:hover .pic .after,.case.show .pic .after{opacity:1}
+.faq button{width:100%;min-height:64px;display:flex;justify-content:space-between;align-items:center;gap:16px;background:transparent;border:0;padding:18px 0;font-family:inherit;font-size:17px;color:#1E1B16;text-align:left;cursor:pointer}
+.faq p{margin:0 0 22px;font-size:15px;line-height:1.8;color:#4A433A;display:none}
+.faq.open p{display:block}
+</style>
+</head>
+<body>
+<div style="background:#1E1B16;color:#F7F3EC;font-size:13px;letter-spacing:.06em;padding:10px 16px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px"><span>[전화번호]</span><span>100% 예약제 · 1:1 프라이빗 시술</span></div>
+
+<header style="border-bottom:1px solid #E4DCCD">
+  <div class="wrap" style="padding-top:18px;padding-bottom:18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+    <a href="#top" style="display:flex;flex-direction:column;line-height:1">
+      <span class="latin" style="font-size:28px;letter-spacing:.04em">[샵 이름]</span>
+      <span style="font-size:11px;letter-spacing:.36em;color:#6B6255;margin-top:6px">BROW STUDIO · SEOUL</span>
+    </a>
+    <nav style="display:flex;flex-wrap:wrap;gap:28px;font-size:14px"><a href="#result">전후 사진</a><a href="#menu">시술 메뉴</a><a href="#process">시술 과정</a><a href="#faq">자주 묻는 질문</a></nav>
+    <a href="#booking" class="pill" style="background:#1E1B16;color:#F7F3EC;padding:13px 24px;font-size:13px;font-weight:500;letter-spacing:.12em">예약하기</a>
+  </div>
+</header>
+
+<section id="top" class="wrap" style="padding-top:56px;padding-bottom:72px;display:flex;flex-wrap:wrap;gap:48px;align-items:center">
+  <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:24px">
+    <div class="eyebrow" style="display:flex;align-items:center;gap:12px"><span style="width:32px;height:1px;background:#7A5C2C"></span>SEMI-PERMANENT BROWS</div>
+    <h1 class="head" style="margin:0;font-size:clamp(40px,5.2vw,72px);line-height:1.26;letter-spacing:-.03em">원래 내 눈썹처럼,<br><span style="color:#7A5C2C">자연스럽게</span></h1>
+    <p style="margin:0;font-size:17px;line-height:1.8;color:#4A433A;max-width:460px">얼굴형과 골격, 모질까지 살펴 한 사람만을 위한 눈썹을 디자인합니다. 티 나지 않게 채우고, 매일 아침은 가볍게.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <a href="#booking" class="pill" style="background:#A8834A;color:#1E1B16;padding:16px 32px;font-size:14px;font-weight:700;letter-spacing:.12em">상담 예약하기</a>
+      <a href="#menu" class="pill" style="border:1px solid #1E1B16;padding:15px 28px;font-size:14px;font-weight:500;letter-spacing:.12em;display:inline-flex;align-items:center;gap:8px">시술 메뉴 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">
+      <div style="display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.14em;color:#4A433A"><span style="width:32px;height:1px;background:#B9AE9C"></span>VIEWING · <span id="viewing"></span></div>
+      <div style="font-size:12px;color:#6B6255;padding-left:44px">샘플 이미지입니다. 개인에 따라 결과가 다를 수 있습니다.</div>
+    </div>
+  </div>
+  <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:12px">
+    <div class="ba" id="ba">
+      <img id="baAfter" alt="시술 후">
+      <img id="baBefore" alt="시술 전">
+      <div class="line" id="baLine"></div>
+      <div class="knob" id="baKnob"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E1B16" stroke-width="1.8" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></div>
+      <span class="tag" style="left:14px">BEFORE</span><span class="tag" style="right:14px">AFTER</span>
+      <input type="range" min="0" max="100" value="50" id="baRange" aria-label="시술 전후 비교 슬라이더">
+    </div>
+    <div id="baThumbs" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px"></div>
+  </div>
+</section>
+
+<section style="border-top:1px solid #E4DCCD;border-bottom:1px solid #E4DCCD;background:#EFE8DC">
+  <div class="wrap" style="padding-top:36px;padding-bottom:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;text-align:center">
+    <div class="stat"><div class="n">[수치]</div><div class="l">누적 시술 고객</div></div>
+    <div class="stat"><div class="n">[수치]</div><div class="l">재방문율</div></div>
+    <div class="stat"><div class="n">[수치]</div><div class="l">시술 경력</div></div>
+    <div class="stat"><div class="n">[수치]</div><div class="l">리뷰 평점</div></div>
+  </div>
+</section>
+
+<div style="background:#A8834A"><div class="wrap" style="padding-top:18px;padding-bottom:18px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 24px;font-size:15px"><span style="font-weight:700">첫 방문 고객 [혜택 내용]</span><a href="#booking" style="font-size:13px;letter-spacing:.14em;border-bottom:1px solid #1E1B16;padding-bottom:2px">예약하고 혜택 받기</a></div></div>
+
+<section class="wrap" style="padding-top:96px;padding-bottom:96px;display:flex;flex-wrap:wrap;gap:56px;align-items:center">
+  <img src="img/artist.jpg" alt="장갑을 끼고 고객의 눈썹 디자인을 그리는 아티스트" style="flex:1 1 380px;min-width:0;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:24px;background:#E6DED1">
+  <div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:22px">
+    <div class="eyebrow">ABOUT US</div>
+    <h2 class="head" style="margin:0;font-size:clamp(30px,3.8vw,50px);line-height:1.25">정밀함과 섬세함이<br>만나는 곳</h2>
+    <p style="margin:0;font-size:16px;line-height:1.85;color:#4A433A">[스튜디오 소개 — 대표 아티스트의 경력, 시술 철학, 위치 등을 적어주세요.]</p>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px;margin-top:8px">
+      <div class="feat"><b>1:1 맞춤 디자인</b><div>얼굴 비율 측정 후 디자인 확정</div></div>
+      <div class="feat"><b>일회용 니들</b><div>고객마다 새 니들을 개봉해 사용</div></div>
+      <div class="feat"><b>리터치 포함</b><div>[리터치 기간·조건]</div></div>
+      <div class="feat"><b>프라이빗 룸</b><div>한 타임 한 분만 예약</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="menu" style="background:#1E1B16;color:#F7F3EC">
+  <div class="wrap" style="padding-top:96px;padding-bottom:96px">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:40px">
+      <div><div class="eyebrow" style="color:#D2B07A;margin-bottom:12px">OUR SERVICES</div><h2 class="head" style="margin:0;font-size:clamp(32px,4vw,52px)">시술 메뉴</h2></div>
+      <a href="#booking" style="color:#F7F3EC;font-size:14px;letter-spacing:.12em;border-bottom:1px solid #F7F3EC;padding-bottom:4px">상담 예약</a>
+    </div>
+    <div id="services"></div>
+  </div>
+</section>
+
+<section id="result" class="wrap" style="padding-top:96px;padding-bottom:96px">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:40px">
+    <div><div class="eyebrow" style="margin-bottom:12px">BEFORE &amp; AFTER</div><h2 class="head" style="margin:0;font-size:clamp(32px,4vw,52px)">달라진 인상</h2></div>
+    <div style="font-size:13px;color:#5C5347">사진에 마우스를 올리거나 누르면 시술 후 모습이 보여요. · 샘플 이미지</div>
+  </div>
+  <div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px"></div>
+</section>
+
+<section id="process" style="background:#EFE8DC">
+  <div class="wrap" style="padding-top:96px;padding-bottom:96px">
+    <div class="eyebrow" style="margin-bottom:12px">PROCESS</div>
+    <h2 class="head" style="margin:0 0 40px;font-size:clamp(32px,4vw,52px)">네 단계로 완성됩니다</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+      <div style="border-top:2px solid #1E1B16;padding-top:18px"><span class="latin" style="font-size:34px;color:#7A5C2C">01</span><h3 style="margin:10px 0;font-size:19px;font-weight:500">상담</h3><p style="margin:0;font-size:14px;line-height:1.75;color:#4A433A">원하는 분위기와 피부 상태, 기존 시술 이력을 확인합니다.</p></div>
+      <div style="border-top:2px solid #1E1B16;padding-top:18px"><span class="latin" style="font-size:34px;color:#7A5C2C">02</span><h3 style="margin:10px 0;font-size:19px;font-weight:500">디자인</h3><p style="margin:0;font-size:14px;line-height:1.75;color:#4A433A">얼굴 비율을 측정해 눈썹 모양을 그리고, 함께 확인한 뒤 확정합니다.</p></div>
+      <div style="border-top:2px solid #1E1B16;padding-top:18px"><span class="latin" style="font-size:34px;color:#7A5C2C">03</span><h3 style="margin:10px 0;font-size:19px;font-weight:500">시술</h3><p style="margin:0;font-size:14px;line-height:1.75;color:#4A433A">[마취 방식과 소요 시간을 적어주세요.]</p></div>
+      <div style="border-top:2px solid #1E1B16;padding-top:18px"><span class="latin" style="font-size:34px;color:#7A5C2C">04</span><h3 style="margin:10px 0;font-size:19px;font-weight:500">리터치</h3><p style="margin:0;font-size:14px;line-height:1.75;color:#4A433A">[리터치 시기와 사후 관리 방법을 적어주세요.]</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="max-width:920px;margin:0 auto;padding:96px 24px">
+  <div class="eyebrow" style="margin-bottom:12px">FAQ</div>
+  <h2 class="head" style="margin:0 0 32px;font-size:clamp(30px,3.6vw,46px)">자주 묻는 질문</h2>
+  <div id="faqs" style="border-bottom:1px solid #D8CDBA"></div>
+</section>
+
+<section id="booking" style="position:relative;overflow:hidden;background:#1E1B16">
+  <img src="img/studio.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35">
+  <div class="wrap" style="position:relative;padding-top:120px;padding-bottom:120px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;color:#F7F3EC">
+    <div class="eyebrow" style="color:#E3C997">BOOK YOUR SESSION</div>
+    <h2 class="head" style="margin:0;font-size:clamp(32px,4.4vw,58px);line-height:1.25">나에게 맞는 눈썹,<br>상담부터 시작하세요</h2>
+    <p style="margin:0;font-size:16px;color:#E4DCCD">[주소] · [영업시간]</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:8px">
+      <a href="#booking" class="pill" style="background:#A8834A;color:#1E1B16;padding:16px 32px;font-size:14px;font-weight:700;letter-spacing:.12em">네이버 예약</a>
+      <a href="#booking" class="pill" style="border:1px solid #F7F3EC;color:#F7F3EC;padding:15px 28px;font-size:14px;font-weight:500;letter-spacing:.12em">카카오톡 상담</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#14120F;color:#CFC6B8">
+  <div class="wrap" style="padding-top:48px;padding-bottom:48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;font-size:13px;line-height:1.8">
+    <div><div class="latin" style="font-size:24px;color:#F7F3EC">[샵 이름]</div><div>[상호명] · [사업자등록번호] · [주소]</div></div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px"><a href="#top" style="color:#CFC6B8">Instagram</a><a href="#top" style="color:#CFC6B8">네이버 블로그</a><a href="#top" style="color:#CFC6B8">개인정보처리방침</a></div>
+  </div>
+</footer>
+<a href="../" class="pill" style="position:fixed;right:16px;bottom:16px;background:#1E1B16;color:#F7F3EC;padding:12px 18px;font-size:13px;z-index:50">← 시안 목록</a>
+
+<script>
+var cases=[
+ {name:'자연 결눈썹',badge:'HAIR STROKE',session:'1회 + 리터치',b:'b1',a:'a1'},
+ {name:'엠보 섀도우',badge:'POWDER',session:'1회 + 리터치',b:'b2v2',a:'a2v2'},
+ {name:'잔흔 커버',badge:'CORRECTION',session:'2회 + 리터치',b:'b3v3',a:'a3v3'},
+ {name:'남자 눈썹',badge:'MEN',session:'1회 + 리터치',b:'b4v3',a:'a4v3'}];
+var active=0,pos=50,paused=false,period=5200,amp=38,t0=performance.now(),cycles=0;
+var $=function(id){return document.getElementById(id)};
+function setPos(p){pos=p;$('baBefore').style.clipPath='inset(0 '+(100-p)+'% 0 0)';$('baLine').style.left=p+'%';$('baKnob').style.left=p+'%';$('baRange').value=p;}
+function show(i){active=i;var c=cases[i];$('baAfter').src='img/'+c.a+'.jpg';$('baBefore').src='img/'+c.b+'.jpg';$('viewing').textContent=c.name+' · '+c.session;
+ $('baThumbs').innerHTML=cases.map(function(x,j){return '<button type="button" class="th'+(j===i?' on':'')+'" data-i="'+j+'" aria-label="'+x.name+' 전후 보기"><img src="img/'+x.a+'.jpg" alt=""></button>';}).join('');}
+function restartFrom(p){var x=Math.max(-1,Math.min(1,(p-50)/amp));t0=performance.now()-(Math.asin(x)/(Math.PI*2))*period;cycles=0;}
+$('baThumbs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;show(+b.dataset.i);restartFrom(50);setPos(50);});
+$('baRange').addEventListener('input',function(e){paused=true;setPos(+e.target.value);});
+$('ba').addEventListener('mouseenter',function(){paused=true});
+$('ba').addEventListener('mouseleave',function(){restartFrom(pos);paused=false});
+$('ba').addEventListener('touchstart',function(){paused=true},{passive:true});
+$('ba').addEventListener('touchend',function(){setTimeout(function(){restartFrom(pos);paused=false},2500)});
+(function tick(now){if(!paused){var el=now-t0,cyc=Math.floor(el/period);if(cyc>cycles){cycles=cyc;if(cyc%2===0)show((active+1)%4);}setPos(50+amp*Math.sin(el/period*Math.PI*2));}requestAnimationFrame(tick);})(performance.now());
+show(0);setPos(50);
+
+var svc=[['01','자연 결눈썹','HAIR STROKE · 자연스러움','한 올 한 올 결을 그려 넣어 원래 눈썹처럼 보이게 합니다. 눈썹 숱이 적거나 비어 있는 분께 추천합니다.'],['02','엠보 섀도우','POWDER · 메이크업 효과','파우더로 은은하게 채워 가볍게 화장한 듯한 눈썹을 만듭니다. 지성 피부에도 잘 맞습니다.'],['03','콤보 눈썹','COMBO · 결 + 섀도우','앞머리는 결로, 꼬리는 섀도우로 채워 자연스러움과 선명함을 함께 잡습니다.'],['04','잔흔 커버','CORRECTION · 재시술','푸르게 변색되었거나 모양이 어색한 기존 문신을 상담 후 보정합니다.'],['05','남자 눈썹','MEN · 정돈된 인상','남성 골격에 맞춘 일자형 디자인으로 빈 곳을 채워 또렷한 인상을 만듭니다.']];
+$('services').innerHTML=svc.map(function(s){return '<div class="svc"><span class="latin" style="font-size:36px;color:#D2B07A;width:56px">'+s[0]+'</span><div style="flex:1 1 240px;min-width:0"><h3 style="margin:0;font-size:22px;font-weight:500">'+s[1]+'</h3><div style="font-size:12px;letter-spacing:.14em;color:#CFC6B8;margin-top:6px">'+s[2]+'</div></div><p style="margin:0;flex:2 1 320px;font-size:15px;line-height:1.75;color:#CFC6B8">'+s[3]+'</p><span style="font-size:16px;font-weight:700;min-width:100px;text-align:right">[가격]</span></div>';}).join('');
+$('gallery').innerHTML=cases.map(function(c){return '<article class="case" style="display:flex;flex-direction:column;gap:12px;cursor:pointer"><div class="pic"><img src="img/'+c.b+'.jpg" alt="'+c.name+' 시술 전"><img class="after" src="img/'+c.a+'.jpg" alt="'+c.name+' 시술 후"><span style="position:absolute;left:12px;top:12px;background:#1E1B16;color:#F7F3EC;font-size:11px;letter-spacing:.16em;padding:5px 11px;border-radius:999px">'+c.badge+'</span></div><div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 style="margin:0;font-size:17px;font-weight:500">'+c.name+'</h3><span style="font-size:13px;color:#5C5347">'+c.session+'</span></div></article>';}).join('');
+$('gallery').addEventListener('click',function(e){var a=e.target.closest('.case');if(a)a.classList.toggle('show');});
+var qa=[['시술 시간은 얼마나 걸리나요?','[상담과 디자인을 포함한 전체 소요 시간을 적어주세요.]'],['얼마나 유지되나요?','[평균 유지 기간과 피부 타입별 차이를 적어주세요.]'],['아프지 않나요?','[마취 방법과 통증 정도를 적어주세요.]'],['시술 후 주의할 점이 있나요?','[세안, 화장, 사우나 등 시술 후 주의사항을 적어주세요.]']];
+$('faqs').innerHTML=qa.map(function(q,i){return '<div class="faq'+(i===0?' open':'')+'" style="border-top:1px solid #D8CDBA"><button type="button" aria-expanded="'+(i===0)+'"><span>'+q[0]+'</span><span class="ic" style="font-size:22px;color:#7A5C2C;width:24px;text-align:center">'+(i===0?'−':'+')+'</span></button><p>'+q[1]+'</p></div>';}).join('');
+$('faqs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var f=b.parentNode,open=!f.classList.contains('open');
+ Array.prototype.forEach.call($('faqs').children,function(x){x.classList.remove('open');x.querySelector('.ic').textContent='+';x.querySelector('button').setAttribute('aria-expanded','false');});
+ if(open){f.classList.add('open');f.querySelector('.ic').textContent='−';b.setAttribute('aria-expanded','true');}});
+</script>
+</body>
+</html>
