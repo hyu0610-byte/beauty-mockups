@@ -1,5 +1,5 @@
 // 앱(PWA)용 서비스 워커: 항상 최신 내용을 먼저 받고, 인터넷이 끊기면 저장해 둔 화면을 보여줍니다.
-var CACHE = 'salon-v1';
+var CACHE = 'salon-v2';
 var CORE = ['./', './store.js?v=3', './manifest.webmanifest', './icons/icon-192.png', './img/hero.jpg'];
 
 self.addEventListener('install', function (e) {

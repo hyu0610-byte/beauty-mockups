@@ -5,7 +5,7 @@
   "lang": "ko",
   "start_url": "./",
   "scope": "./",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#F7F5EF",
   "theme_color": "#2E3A2C",
   "icons": [
